@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <!-- swiper -->
@@ -16,7 +15,7 @@
     <script src="https://kit.fontawesome.com/f1def33959.js" crossorigin="anonymous"></script>
     <!-- default css -->
     <link rel="stylesheet" href="format.css">
-
+    <script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,500&display=swap');
         @import url('http://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css');
@@ -474,6 +473,22 @@
             padding-top: 5em;
         } 
 
+         
+        #banner {
+        position: fixed;
+        right: 20px;
+        bottom: 50px;
+        width: 50px;
+        height: 100px;
+        background: salmon;
+        box-shadow: 0 0 10px rgba(0, 0, 0, .6);
+        }
+
+        #banner.on {
+        position: absolute;
+        bottom: 500px;
+        }   
+
 
         /* footer */
         footer {
@@ -770,6 +785,9 @@
             </section>
         </main>
         <p class="blank"></p>
+        <div id="banner">
+          banner
+        </div>
         <footer>
             <article class="footer-logo"><a href="#">BalanceDiary</a></article>
             <section class="footer-content-box">
@@ -909,7 +927,7 @@
          
         activetab = this.classList.add("is_on");
         });
-
+    }
 
 
         // slide-tab
@@ -965,10 +983,28 @@
         const percent = (video.currentTime / video.duration) * 100;
         progressBar.style.flexBasis = `${percent}%`;
         }
-        video.addEventListener('timeupdate', handleProgress);
+        video.addEventListener('timeupdate', handleProgress);       
 
-       
-}
+        $(function() {
+
+        var $w = $(window),
+        footerHei = $('footer').outerHeight(),
+        $banner = $('#banner');
+
+        $w.on('scroll', function() {
+
+        var sT = $w.scrollTop();
+        var val = $(document).height() - $w.height() - footerHei;
+
+        if (sT >= val)
+            $banner.addClass('on')
+        else
+                $banner.removeClass('on')
+
+            });
+        });
+
+
     </script>
 </body>
 </html>
